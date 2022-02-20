@@ -69,6 +69,7 @@ function calculateGameScore(theGame) {
 
 var game = {
     game_id: 0, /* This will really be epoch time */
+    league_id: "",  /* Eventually when this supports leagues */
     frames: [
         {
             frame_no: 1,
@@ -105,251 +106,143 @@ var game = {
                 pins_downed: 10
 
             },
-
             ball_2: {
-
                 pin_state: null,
-
                 pins_downed: null
-
             }
-
         },
-
         {
-
             frame_no: 4,
-
             frame_type: 0, /* type 0 = standard frame, type 1 = 10th frame */
-
             frame_complete: true,
-
             ball_1: {
-
                 pin_state: 0,
-
                 pins_downed: 10
-
             },
-
             ball_2: {
-
                 pin_state: null,
-
                 pins_downed: null
-
             }
-
         },
-
         {
-
             frame_no: 5,
-
             frame_type: 0, /* type 0 = standard frame, type 1 = 10th frame */
-
             frame_complete: true,
-
             ball_1: {
-
                 pin_state: 0,
-
                 pins_downed: 10
-
             },
-
             ball_2: {
-
                 pin_state: null,
-
                 pins_downed: null
-
             }
-
         },
-
         {
-
             frame_no: 6,
-
             frame_type: 0, /* type 0 = standard frame, type 1 = 10th frame */
-
             frame_complete: true,
-
             ball_1: {
-
                 pin_state: 0,
-
                 pins_downed: 10
-
             },
-
             ball_2: {
-
                 pin_state: null,
-
                 pins_downed: null
-
             }
-
         },
-
         {
-
             frame_no: 7,
-
             frame_type: 0, /* type 0 = standard frame, type 1 = 10th frame */
-
             frame_complete: true,
-
             ball_1: {
-
                 pin_state: 0,
-
                 pins_downed: 10
-
             },
-
             ball_2: {
-
                 pin_state: null,
-
                 pins_downed: null
-
             }
-
         },
-
         {
-
             frame_no: 8,
-
             frame_type: 0, /* type 0 = standard frame, type 1 = 10th frame */
-
             frame_complete: true,
-
             ball_1: {
-
                 pin_state: 0,
-
                 pins_downed: 10
-
             },
-
             ball_2: {
-
                 pin_state: null,
-
                 pins_downed: null
-
             }
-
         },
-
         {
-
             frame_no: 9,
-
             frame_type: 0, /* type 0 = standard frame, type 1 = 10th frame */
-
             frame_complete: true,
-
             ball_1: {
-
                 pin_state: 0,
-
                 pins_downed: 10
-
             },
-
             ball_2: {
-
                 pin_state: null,
-
                 pins_downed: null
-
             }
-
         },
-
         {
-
             frame_no: 10,
-
             frame_type: 1, /* type 0 = standard frame, type 1 = 10th frame */
-
             frame_complete: true,
-
             ball_1: {
-
                 pin_state: 26,
-
                 pins_downed: 7
-
             },
-
             ball_2: {
-
                 pin_state: 0b0000001000, /* Decimal 8 */
-
                 pins_downed: 2
-
             },
-
             ball_3: {
-
                 pin_state: null,
-
                 pins_downed: null
-
             }
-
         },
-
     ]
-
 };
-
  
-
 games.push(game);
-
  
-
 for(var game_index in games){
-
     console.log(games[game_index])
-
     var p = calculateGameScore(games[game_index].frames);
-
     console.log(p);
-
 }
-
  
-
 $(document).ready(function (){
 
+    var current_frame = 0;
+    var ball_number = 1;
+
     $(".pin-7").on("click", function(){
-
         console.log("I clicked the 7th pin");
-
     });
-
  
-
     $(".pin-wrapper").on("click", function(){
-
         console.log($(this).attr("class"));
-
     });
-
  
-
     function iClickedIt(i){
-
         console.log("I clicked" + i);
-
     }
 
+    $(".pin").on("click", function(){
+        if($(this).hasClass("pin-down")){
+            //Remove the class, and then add the other class.
+            $(this).removeClass("pin-down");
+            $(this).addClass("pin-standing");
+        } else {
+            $(this).addClass("pin-down");
+            $(this).removeClass("pin-standing");
+        }
+    });
+    
 });
