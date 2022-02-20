@@ -210,6 +210,151 @@ var game = {
 };
  
 games.push(game);
+
+
+var fresh_game = {
+    game_id: 0, /* This will really be epoch time */
+    league_id: "",  /* Eventually when this supports leagues */
+    frames: [
+        {
+            frame_no: 1,
+            frame_type: 0, /* type 0 = standard frame, type 1 = 10th frame */
+            frame_complete: false,
+            ball_1: {
+                pin_state: null, /* Binary representation of pins 0000011010.  1 = Pin standing, 0 = Pin down */
+                pins_downed: null
+            },
+            ball_2: {
+                pin_state: null,
+                pins_downed: null
+            }
+        },
+        {
+            frame_no: 2,
+            frame_type: 0, /* type 0 = standard frame, type 1 = 10th frame */
+            frame_complete: false,
+            ball_1: {
+                pin_state: null,
+                pins_downed: null
+            },
+            ball_2: {
+                pin_state: null,
+                pins_downed: null
+            }
+        },
+        {
+            frame_no: 3,
+            frame_type: 0, /* type 0 = standard frame, type 1 = 10th frame */
+            frame_complete: false,
+            ball_1: {
+                pin_state: null,
+                pins_downed: null
+
+            },
+            ball_2: {
+                pin_state: null,
+                pins_downed: null
+            }
+        },
+        {
+            frame_no: 4,
+            frame_type: 0, /* type 0 = standard frame, type 1 = 10th frame */
+            frame_complete: false,
+            ball_1: {
+                pin_state: null,
+                pins_downed: null
+            },
+            ball_2: {
+                pin_state: null,
+                pins_downed: null
+            }
+        },
+        {
+            frame_no: 5,
+            frame_type: 0, /* type 0 = standard frame, type 1 = 10th frame */
+            frame_complete: false,
+            ball_1: {
+                pin_state: null,
+                pins_downed: null
+            },
+            ball_2: {
+                pin_state: null,
+                pins_downed: null
+            }
+        },
+        {
+            frame_no: 6,
+            frame_type: 0, /* type 0 = standard frame, type 1 = 10th frame */
+            frame_complete: false,
+            ball_1: {
+                pin_state: null,
+                pins_downed: null
+            },
+            ball_2: {
+                pin_state: null,
+                pins_downed: null
+            }
+        },
+        {
+            frame_no: 7,
+            frame_type: 0, /* type 0 = standard frame, type 1 = 10th frame */
+            frame_complete: false,
+            ball_1: {
+                pin_state: null,
+                pins_downed: null
+            },
+            ball_2: {
+                pin_state: null,
+                pins_downed: null
+            }
+        },
+        {
+            frame_no: 8,
+            frame_type: 0, /* type 0 = standard frame, type 1 = 10th frame */
+            frame_complete: false,
+            ball_1: {
+                pin_state: null,
+                pins_downed: null
+            },
+            ball_2: {
+                pin_state: null,
+                pins_downed: null
+            }
+        },
+        {
+            frame_no: 9,
+            frame_type: 0, /* type 0 = standard frame, type 1 = 10th frame */
+            frame_complete: false,
+            ball_1: {
+                pin_state: null,
+                pins_downed: null
+            },
+            ball_2: {
+                pin_state: null,
+                pins_downed: null
+            }
+        },
+        {
+            frame_no: 10,
+            frame_type: 1, /* type 0 = standard frame, type 1 = 10th frame */
+            frame_complete: false,
+            ball_1: {
+                pin_state: null,
+                pins_downed: null
+            },
+            ball_2: {
+                pin_state: null, /* Decimal 8 */
+                pins_downed: null
+            },
+            ball_3: {
+                pin_state: null,
+                pins_downed: null
+            }
+        },
+    ]
+};
+
+
  
 for(var game_index in games){
     console.log(games[game_index])
@@ -218,6 +363,27 @@ for(var game_index in games){
 }
  
 $(document).ready(function (){
+
+    function addPinToScore(current_score, pin_number){
+        current_score |= (1 << (pin_number-1));
+        return current_score;
+    }
+
+    function removePinToScore(current_score, pin_number){
+        var pin_mask = 1 << (pin_number - 1);
+        pin_mask = ~pin_mask;
+        current_score &= pin_mask;
+        return current_score;
+    }
+
+    var example_game = $.extend(true, {}, fresh_game);
+    console.log(example_game);
+
+    var score = 8;
+    score = addPinToScore(score, 9);
+    console.log(score.toString(2));
+    score = removePinToScore(score, 4);
+    console.log(score.toString(2));
 
     var current_frame = 0;
     var ball_number = 1;
@@ -228,6 +394,7 @@ $(document).ready(function (){
  
     $(".pin-wrapper").on("click", function(){
         console.log($(this).attr("class"));
+        //console.log(1<<0);
     });
  
     function iClickedIt(i){
@@ -243,6 +410,9 @@ $(document).ready(function (){
             $(this).addClass("pin-down");
             $(this).removeClass("pin-standing");
         }
+
+        console.log($(this).attr("pin"));
+
     });
     
 });
